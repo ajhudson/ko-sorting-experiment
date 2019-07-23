@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Knockout sorting experiment</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Sorting Experiment</h2>
+
+        <table class="table" data-bind="tableSort: people">
+            <thead>
+                <tr>
+                    <th><a href="#" data-sortby="id">ID</a></th>
+                    <th><a href="#" data-sortby="firstname">First name</a></th>
+                    <th><a href="#" data-sortby="surname">Surname</a></th>
+                    <th><a href="#" data-sortby="city">City</a></th>
+                    <th><a href="#" data-sortby="country">Country</a></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: people">
+                <tr>
+                    <td data-bind="text: id"></td>
+                    <td data-bind="text: firstname"></td>
+                    <td data-bind="text: surname"></td>
+                    <td data-bind="text: city"></td>
+                    <td data-bind="text: country"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/knockout/build/output/knockout-latest.debug.js"></script>
+    <script src="ko-custom-binding.js"></script>
+    <script src="sorting-experiment.js"></script>
+</body>
+</html>
