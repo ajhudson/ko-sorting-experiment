@@ -47,8 +47,41 @@ ko.bindingHandlers.tableSort = {
         
         
 
-    },
-    update: function(el, valueAccessor, allBindings, viewModel, bindingContext) {
-        
+    }
+}
+
+ko.bindingHandlers.toggleSlideFade = {
+    init: function(el, valueAccessor, allBindings) {
+        var btnId = ko.utils.unwrapObservable(valueAccessor());
+        var btn = $("#" + btnId);
+        var fadeSpeedMs = 500;
+        var slideSpeedMs = 500;
+
+        if (!btn.length) {
+            throw "no button in toggleSlideFade custom binding!";
+        }
+
+        $(el).first().hide();
+        $(el).first().css("opacity", 0);
+        $(el).slideUp();
+
+        btn.click(function(event) {
+            var isOpen = $(el).css("display") == "none" ? false : true;
+
+            if (isOpen) {
+                $(el).first().animate({ opacity: 0 }, fadeSpeedMs, function() {
+                    $(el).slideUp(slideSpeedMs, function() {
+                        $(el).first().hide();
+                        btn.text("+");
+                    });
+                });
+            } else {
+                $(el).slideDown(slideSpeedMs, function() {
+                    $(el).first().show();
+                    $(el).first().animate({ opacity: 1}, fadeSpeedMs);
+                    btn.text("-");
+                });
+            }
+        });
     }
 }

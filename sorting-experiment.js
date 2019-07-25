@@ -17,6 +17,8 @@ function SortingExperimentViewModel() {
         new Person(6, "Xi", "Yang", "Shanghai", "China")
     ]);
 
+    var isSummaryOpen = ko.observable(false);
+
     return {
         people: people
     };
