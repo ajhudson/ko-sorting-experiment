@@ -61,6 +61,10 @@ ko.bindingHandlers.toggleSlideFade = {
             throw "no button in toggleSlideFade custom binding!";
         }
 
+        if (!$(el).first().length) {
+            throw "no child element for toggleSlideFade custom binding!";
+        }
+        
         $(el).first().hide();
         $(el).first().css("opacity", 0);
         $(el).slideUp();

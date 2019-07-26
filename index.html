@@ -3,11 +3,18 @@
 <head>
     <title>Knockout sorting experiment</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+        .center { text-align: center; }
+    </style>
 </head>
 <body>
 
     <div class="container">
         <h2>Sorting Experiment</h2>
+
+        <div id="paginator-container" class="center">
+            <div data-bind="component: { name: 'client-side-paginator', params: { paginatorInfo: paginatorInfo } }"></div>
+        </div>
 
         <table class="table" data-bind="tableSort: people">
             <thead>
@@ -58,6 +65,9 @@
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="node_modules/knockout/build/output/knockout-latest.debug.js"></script>
     <script src="ko-custom-binding.js"></script>
+    <script src="ko-components.js"></script>
     <script src="sorting-experiment.js"></script>
+
+    
 </body>
 </html>
