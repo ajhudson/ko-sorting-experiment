@@ -13,10 +13,12 @@
         <h2>Sorting Experiment</h2>
 
         <div id="paginator-container" class="center">
-            <div data-bind="component: { name: 'client-side-paginator', params: { paginatorInfo: paginatorInfo } }"></div>
+            <div data-bind="component: { name: 'client-side-paginator', params: { pagingInfo: pagingInfo } }"></div>
         </div>
 
-        <table class="table" data-bind="tableSort: people">
+        <p>Current Page: <span data-bind="text: pagingInfo.currentPage"></span></p>
+
+        <table class="table" data-bind="simpleDataGrid: people, currentPage: pagingInfo.currentPage, pageSize: pagingInfo.pageSize">
             <thead>
                 <tr>
                     <th><a href="#" data-sortby="id">ID</a></th>

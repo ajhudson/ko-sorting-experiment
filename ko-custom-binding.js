@@ -12,10 +12,11 @@ sortByProperty = function(arr, propertyName, isDescending) {
     });
 }
 
-ko.bindingHandlers.tableSort = {
+ko.bindingHandlers.simpleDataGrid = {
     init: function(el, valueAccessor, allBindings, viewModel, bindingContext) {
         $(el).attr("data-sortdescending", false);
-        var dataArray = ko.utils.unwrapObservable(valueAccessor());
+        var dataArrayOb = valueAccessor();
+        var dataArray = ko.utils.unwrapObservable(dataArrayOb());
 
         if (dataArray.length == 0) {
             return;
@@ -23,6 +24,30 @@ ko.bindingHandlers.tableSort = {
 
         if (Object.keys(dataArray[0]).length == 0) {
             return;
+        }
+
+        handlePaging();
+
+        function handlePaging() {
+            var currentPage = allBindings.get("currentPage");
+            var pageSize = allBindings.get("pageSize");
+            var hasPagingInfo = $.isNumeric(currentPage()) && $.isNumeric(pageSize());
+
+            if (!hasPagingInfo) {
+                return;
+            }
+
+            var startIndex = (currentPage() * pageSize()) - pageSize();
+            var endIndex = (startIndex + pageSize()) - 1;
+            var pagedData = [];
+
+            for (var i = 0; i <= dataArray.length; i++) {
+                if (i >= startIndex && i <= endIndex) {
+                    pagedData.push(dataArray[i]);
+                }
+            }
+            
+            dataArrayOb(pagedData);
         }
 
         var columnNames = Object.keys(dataArray[0]);

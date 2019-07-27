@@ -2,12 +2,11 @@ ko.components.register('client-side-paginator', {
     viewModel: function(params) {
 
         var self = this,
-            pageSizeOb = params.paginatorInfo.pageSize,
-            recordsOb = params.paginatorInfo.records,
+            pageSizeOb = params.pagingInfo.pageSize,
+            recordsOb = params.pagingInfo.records,
             pagesLength = Math.round(recordsOb().length / pageSizeOb()),
-            pageNumbers = initPageNumbers(pagesLength);
-
-        var currentPage = ko.observable(params.paginatorInfo.currentPage());
+            pageNumbers = initPageNumbers(pagesLength),
+            currentPageOb = params.pagingInfo.currentPage;
 
         function initPageNumbers(pageLength) {
             var pn = ["|<"];
@@ -31,16 +30,16 @@ ko.components.register('client-side-paginator', {
 
         return {
             pageNumbers: pageNumbers,
-            pageSize: pageSizeOb(),
-            currentPage: currentPage,
+            pageSize: pageSizeOb,
+            currentPage: currentPageOb,
             gotoPage: gotoPage,
             isActive: isActive
         }
     },
     template: 
-        '<p>Page size: <span data-bind="text: pageSize"></span>. Current page: <span data-bind="text: currentPage"></span></p>\
-        <ul class="pagination" data-bind="foreach: pageNumbers">\
+        '<ul class="pagination" data-bind="foreach: pageNumbers">\
             <li data-bind="css: { active: $parent.currentPage() == $data }"><a href="#" data-bind="text: $data, click: function() { $parent.gotoPage($data) }"></a></li>\
-        </ul>'
-
+        </ul>\
+        <p>Page size: <span data-bind="text: pageSize"></span>. Current page: <span data-bind="text: currentPage"></span></p>\
+        '
 });

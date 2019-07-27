@@ -8,6 +8,9 @@ function Person(id, firstname, surname, city, country) {
 
 function SortingExperimentViewModel() {
 
+    var currentPage = ko.observable(1),
+        pageSize = ko.observable(4);
+
     var people = ko.observableArray([
         new Person(1, "Hasan", "Kasamali", "Mumbai", "India"),
         new Person(2, "James", "McCollom", "Bury", "UK"),
@@ -25,15 +28,15 @@ function SortingExperimentViewModel() {
         new Person(14, "Igor", "Stimac", "Zagreb", "Croatia")
     ]);
 
-    var paginatorInfo = {
-        currentPage: ko.observable(1),
-        pageSize: ko.observable(4),
+    var pagingInfo = {
+        currentPage: currentPage,
+        pageSize: pageSize,
         records: people
     };
 
     return {
         people: people,
-        paginatorInfo: paginatorInfo
+        pagingInfo: pagingInfo
     };
 }
 
